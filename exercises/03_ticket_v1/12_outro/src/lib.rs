@@ -11,3 +11,77 @@
 // Integration here has a very specific meaning: they test **the public API** of your project.
 // You'll need to pay attention to the visibility of your types and methods; integration
 // tests can't access private or `pub(crate)` items.
+
+pub struct Order {
+    product_name: String,
+    quantity: u32,
+    unit_price: u32,
+}
+
+impl Order {
+    pub fn new(product_name: String, quantity: u32, unit_price: u32) -> Order {
+        is_valid_product_name(&product_name);
+        is_valid_quantity(quantity);
+        is_valid_price(unit_price);
+        Order {
+            product_name,
+            quantity,
+            unit_price,
+        }
+    }
+
+    // setter methods
+    pub fn set_product_name(&mut self, name: String) {
+        is_valid_product_name(&name);
+        self.product_name = name;
+    }
+
+    pub fn set_quantity(&mut self, quantity: u32) {
+        is_valid_quantity(quantity);
+        self.quantity = quantity
+    }
+
+    pub fn set_unit_price(&mut self, price: u32) {
+        is_valid_price(price);
+        self.unit_price = price
+    }
+
+    // getter methods
+    pub fn product_name(&self) -> &str {
+        &self.product_name
+    }
+
+    pub fn quantity(&self) -> &u32 {
+        &self.quantity
+    }
+
+    pub fn unit_price(&self) -> &u32 {
+        &self.unit_price
+    }
+
+    pub fn total(&self) -> u32 {
+        self.quantity * self.unit_price
+    }
+}
+
+// validation rules
+fn is_valid_product_name(name: &str) {
+    if name.is_empty() {
+        panic!("The product name can't be empty.");
+    }
+    if name.len() > 300 {
+        panic!("The product name can't be longer than 300 bytes.");
+    }
+}
+
+fn is_valid_quantity(quantity: u32) {
+    if quantity <= 0 {
+        panic!("The quantity must be strictly greater than zero.");
+    }
+}
+
+fn is_valid_price(price: u32) {
+    if price <= 0 {
+        panic!("The unit price is in cents and must be strictly greater than zero.");
+    }
+}

@@ -11,21 +11,9 @@ pub struct Ticket {
 
 impl Ticket {
     pub fn new(title: String, description: String, status: String) -> Ticket {
-        if title.is_empty() {
-            panic!("Title cannot be empty");
-        }
-        if title.len() > 50 {
-            panic!("Title cannot be longer than 50 bytes");
-        }
-        if description.is_empty() {
-            panic!("Description cannot be empty");
-        }
-        if description.len() > 500 {
-            panic!("Description cannot be longer than 500 bytes");
-        }
-        if status != "To-Do" && status != "In Progress" && status != "Done" {
-            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
-        }
+        Self::is_valid_title(&title);
+        Self::is_valid_description(&description);
+        Self::is_valid_status(&status);
 
         Ticket {
             title,
@@ -44,6 +32,53 @@ impl Ticket {
 
     pub fn status(&self) -> &String {
         &self.status
+    }
+
+    // setter methods
+    pub fn set_title(&mut self, name: String) {
+        if Self::is_valid_title(&name) {
+            self.title = name;
+        }
+    }
+
+    pub fn set_description(&mut self, name: String) {
+        if Self::is_valid_description(&name) {
+            self.description = name;
+        }
+    }
+
+    pub fn set_status(&mut self, name: String) {
+        if Self::is_valid_status(&name) {
+            self.status = name;
+        }
+    }
+
+    // validation rules
+    fn is_valid_title(name: &String) -> bool {
+        if name.is_empty() {
+            panic!("Title cannot be empty");
+        }
+        if name.len() > 50 {
+            panic!("Title cannot be longer than 50 bytes");
+        }
+        true
+    }
+
+    fn is_valid_description(name: &String) -> bool {
+        if name.is_empty() {
+            panic!("Description cannot be empty");
+        }
+        if name.len() > 500 {
+            panic!("Description cannot be longer than 500 bytes");
+        }
+        true
+    }
+
+    fn is_valid_status(status: &String) -> bool {
+        if status != "To-Do" && status != "In Progress" && status != "Done" {
+            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+        }
+        true
     }
 }
 
