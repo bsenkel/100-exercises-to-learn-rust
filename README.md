@@ -18,6 +18,8 @@ writing your own programs, one exercise at a time.
 Go to [rust-exercises.com](https://rust-exercises.com) and follow the instructions there
 to get started with the course.
 
+Link to [exercise instructions](https://rust-exercises.com/100-exercises/01_intro/00_welcome.html).
+
 ## Requirements
 
 - **Rust** (follow instructions [here](https://www.rust-lang.org/tools/install)).\
