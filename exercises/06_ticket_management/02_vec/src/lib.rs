@@ -10,12 +10,32 @@
 //
 // We expect `fibonacci(0)` to return `0`, `fibonacci(1)` to return `1`,
 // `fibonacci(2)` to return `1`, and so on.
+
 pub fn fibonacci(n: u32) -> u32 {
     // TODO: implement the `fibonacci` function
     //
     // Hint: use a `Vec` to memoize the results you have already calculated
     // so that you don't have to recalculate them several times.
-    todo!()
+
+    if n == 0 {
+        return 0;
+    }
+    if n == 1 {
+        return 1;
+    }
+
+    let mut fib: Vec<u32> = Vec::new();
+    fib.push(0);
+    fib.push(1);
+
+    let n = n as usize;
+
+    for i in 2..=n {
+        let result = fib[i - 2] + fib[i - 1];
+        fib.push(result);
+    }
+
+    fib[n]
 }
 
 #[cfg(test)]
@@ -40,6 +60,16 @@ mod tests {
     #[test]
     fn tenth() {
         assert_eq!(fibonacci(10), 55);
+    }
+
+    #[test]
+    fn eleven() {
+        assert_eq!(fibonacci(11), 89);
+    }
+
+    #[test]
+    fn twelve() {
+        assert_eq!(fibonacci(12), 144);
     }
 
     #[test]
